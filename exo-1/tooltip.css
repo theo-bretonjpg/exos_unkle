@@ -1,25 +1,29 @@
 body {
 
-    font-family : 'calibri-light';
+    font-family : 'calibri light';
 
 }
 
+.txt{
+    width : 380px;
+    padding : 10px;
+    margin: 100px auto;
+    position : relative;
+    font-size : 22px;
+}
 
-
-
-
-.arrow-test{
+/*.arrow-test{
 
     width: 0px;
     height: 0px;
-    /*background: orange;*/ 
+    background: orange; 
     border: 1px solid #000;
 
     border-top: 100px solid transparent;
     border-bottom: 100px solid crimson;
     border-right: 100px solid transparent;
     border-left: 100px solid transparent;
-}
+}*/
 
 .random-text{
     position: absolute;
@@ -28,8 +32,51 @@ body {
     width : 400px;
     padding : 30px;
     color : #f1f1f1;
-    font-size : 20px;
+    opacity : 0;
+    top : 222px;
+    left: -10px;
+  
+
+}
+.random-text::after, .random-text::before {
+
+    content: "";
+    bottom: 100%;
+    left : 50%;
+    border: solid transparent;
+    height : 0;
+    width : 0;
+    position : absolute;
 
 }
 
+.random-text::after{
+    border-bottom-color:#333;
+    border-width: 25px;
+    margin-left: -25px;
+
+}
+
+.random-text::before{
+    border-bottom-color: #666;
+    border-width: 30px;
+    margin-left: -30px;
+}
+
+
+.mario-question{
+    display: inline;
+}
+
+.mario-question img{
+    width: 20px
+}
+
+.mario-question:hover .random-text{
+
+    opacity: 1;
+    display: block;
+    transition: all 0.4s ease;
+
+}
 
