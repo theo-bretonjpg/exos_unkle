@@ -1,14 +1,13 @@
 import uvicorn
-from fastapi import FastAPI
+import  fastapi as _fastapi
+import fastapi.security as _security
+import sqlalchemy.orm as _orm
+import schemas as _schemas 
+import services as _services
 
+app = _fastapi.Fastapi()
 
-app = FastAPI()
-
-@app.get("/")
-def index():
-        return{"message": "hello world"}
-    
-
-
-if __name__ == '__main__':
-    uvicorn.run(app, host="127.0.0.1", port=8000)
+@app.post("/api/clients")
+async def create_client(
+    client : _schemas.ClientCreate, db : _orm.Session = _fastapi.Depends(_services.get_db)):
+    pass
