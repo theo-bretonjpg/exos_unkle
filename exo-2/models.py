@@ -37,11 +37,11 @@ class Contract(_database.Base):
     description = _sql.Column(_sql.String)
     date_debut = _sql.Column(_sql.DateTime, default=_dt.datetime)
     date_end = _sql.Column(_sql.DateTime, default=_dt.datetime)
-    tempete = _sql.column(_sql.Boolean)
-    incendie = _sql.column(_sql.Boolean)
-    inondation = _sql.column(_sql.Boolean)
-    accident = _sql.column(_sql.Boolean)
-    vole = _sql.column(_sql.Boolean)
+    tempete = _sql.Column(_sql.Boolean)
+    incendie = _sql.Column(_sql.Boolean)
+    inondation = _sql.Column(_sql.Boolean)
+    accident = _sql.Column(_sql.Boolean)
+    vole = _sql.Column(_sql.Boolean)
 
 
     clients = _orm.relationship('client', back_populates="contract")
