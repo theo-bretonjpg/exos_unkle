@@ -15,7 +15,7 @@ class ClientCreate(_Clientbase):
     
 class Client(_Clientbase):
     id: int
-    date_created: _dt.datetime
+    #date_created: _dt.datetime
     
     class Config :
         orm_mode = True
@@ -24,7 +24,7 @@ class Client(_Clientbase):
 class _Adminbase(_pydantic.BaseModel):
     email:str
     username : str
-    date_created = str
+    date_created : str
     
 class AdminCreate(_Adminbase):
     password : str
