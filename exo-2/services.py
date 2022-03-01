@@ -47,7 +47,7 @@ async def create_token(client: _models.Client):
     client_schema_obj = _schemas.Client.from_orm(client)
     
     client_dict = client_schema_obj.dict()
-    del client_dict["date_created"]
+    #del client_dict["date_created"]
     
     token = _jwt.encode(
         client_dict, _JWT_SECRET)
