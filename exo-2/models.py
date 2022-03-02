@@ -10,12 +10,11 @@ class Client(_database.Base):
     email = _sql.Column(_sql.String, unique=True, index=True)
     hashed_password = _sql.Column(_sql.String)
     date_created = _sql.Column(_sql.DateTime, default=_dt.datetime.utcnow)
-    
-    #Contract_id = _sql.Column(_sql.Integer, _sql.ForeignKey('contract.id')) 
-    
-    #contracts = _orm.relationship('Contract', foreign_keys=[Contract_id])
+
+    contract_id = _sql.Column(_sql.Integer, _sql.ForeignKey('contract.id'))
+    contracts = _orm.relationship('Contract', foreign_keys=[contract_id])
         
-    def verifie_password_client(self, password : str):
+    def verify_password_client(self, password : str):
         return _hash.bcrypt.verify(password, self.hashed_password)
     
 class Admin(_database.Base):
@@ -26,7 +25,7 @@ class Admin(_database.Base):
     date_created = _sql.Column(_sql.DateTime, default=_dt.datetime.utcnow)
 
 
-def verifie_password_admin(self, password : str):
+def verify_password_admin(self, password : str):
     return _hash.bcrypt.verify(password, self.hashed_password)
 
 class Contract(_database.Base):
@@ -34,13 +33,12 @@ class Contract(_database.Base):
     id = _sql.Column(_sql.Integer, primary_key=True, index=True)
     description = _sql.Column(_sql.String)
     date_debut = _sql.Column(_sql.DateTime, default=_dt.datetime)
-    date_end = _sql.Column(_sql.DateTime, default=_dt.datetime)
+    date_end = _sql.Column(_sql.String)
     tempete = _sql.Column(_sql.Boolean)
     incendie = _sql.Column(_sql.Boolean)
     inondation = _sql.Column(_sql.Boolean)
     accident = _sql.Column(_sql.Boolean)
     vole = _sql.Column(_sql.Boolean)
-    clients_id = _sql.Column(_sql.Integer, _sql.ForeignKey('client.id'))
+    client_id = _sql.Column(_sql.Integer, _sql.ForeignKey('client.id'))
 
-
-    clients = _orm.relationship('Client', foreign_keys=[clients_id])
+    clients = _orm.relationship('Client', foreign_keys=[client_id])

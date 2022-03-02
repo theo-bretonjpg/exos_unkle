@@ -4,8 +4,7 @@ import pydantic as _pydantic
 
 class _Clientbase(_pydantic.BaseModel):
     email:str
-    
-    
+     
 class ClientCreate(_Clientbase):
     password : str
     
@@ -38,22 +37,28 @@ class Admin(_Adminbase):
         orm_mode = True
         
 class _contractBase(_pydantic.BaseModel):
-    contract_description : str
-    date_debut : bool
-    date_end : bool
+
+    description : str
+    date_debut : _dt.datetime
+    date_end : str
     tempete : bool
     incendie : bool
     inondation : bool
     accident : bool
     vole : bool
     
-class _contractCreate (_contractBase):
-    pass 
+class _contractCreate(_contractBase):
+    pass
+
+    class Config :
+        orm_mode = True
+        
 
 class Contract(_contractBase):
-    id : int
-    clients_id:int
     
-class Config :
-    orm_mode = True
+    id : int
+    client_id:int
+    
+    class Config :
+        orm_mode = True
     
