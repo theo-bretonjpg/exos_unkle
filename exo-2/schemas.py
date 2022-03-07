@@ -21,7 +21,6 @@ class Client(_Clientbase):
 
 class _Adminbase(_pydantic.BaseModel):
     email:str
-    date_created : str
     
 class AdminCreate(_Adminbase):
     password : str
@@ -31,7 +30,6 @@ class AdminCreate(_Adminbase):
     
 class Admin(_Adminbase):
     id: int
-    date_created: _dt.datetime
     
     class Config :
         orm_mode = True

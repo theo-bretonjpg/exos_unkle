@@ -25,8 +25,8 @@ class Admin(_database.Base):
     date_created = _sql.Column(_sql.DateTime, default=_dt.datetime.utcnow)
 
 
-def verify_password_admin(self, password : str):
-    return _hash.bcrypt.verify(password, self.hashed_password)
+    def verify_password_admin(self, password : str):
+        return _hash.bcrypt.verify(password, self.hashed_password)
 
 class Contract(_database.Base):
     __tablename__="contract"
