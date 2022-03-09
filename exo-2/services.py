@@ -49,7 +49,7 @@ async def create_client(client: _schemas.ClientCreate, db: _orm.Session):
     db.commit()
     db.refresh(client_obj)
     return client_obj
-
+"""
 async def create_admin(admin: _schemas.AdminCreate, db: _orm.Session):
     # check that email is valid
     try:
@@ -68,9 +68,10 @@ async def create_admin(admin: _schemas.AdminCreate, db: _orm.Session):
     db.commit()
     db.refresh(admin_obj)
     return admin_obj
-    
-   #creating a token for admin
+    """
 
+"""
+#creating a token for admin
 async def create_admin_token(admin: _models.Admin):
     admin_schema_obj = _schemas.Admin.from_orm(admin)
     
@@ -80,7 +81,7 @@ async def create_admin_token(admin: _models.Admin):
         Admin_dict, _JWT_SECRET)
     
     return dict(access_token=token, token_type="bearer")
-
+"""
 #creating a token for client
 
 async def create_client_token(client: _models.Client):
@@ -94,7 +95,6 @@ async def create_client_token(client: _models.Client):
     
     return dict(access_token=token, token_type="bearer")
     
-
 
 async def authenticate_user(email : str, password : str, db: _orm.Session):
     Client = await get_user_by_email(email=email, db=db)  
@@ -119,17 +119,6 @@ async def authenticate_admin(email : str, password : str, db: _orm.Session):
     return Admin
 
 
-async def get_current_client(db: _orm.Session=_fastapi.Depends(get_db), token: str=_fastapi.Depends(oauth2schemaadmin),
-):
-    try :
-        payload= _jwt.decode(token, _JWT_SECRET, algorithms=["HS256"])
-        client = db.query(_models.Client).get(payload["id"])
-    except:
-        raise _fastapi.HTTPException(
-            status_code=401, detail="invalid email or password"
-        )
-
-    return _schemas.Client.from_orm(client)
 
 async def get_current_admin(db: _orm.Session=_fastapi.Depends(get_db), token: str=_fastapi.Depends(oauth2schemaadmin),
 ):
@@ -142,7 +131,6 @@ async def get_current_admin(db: _orm.Session=_fastapi.Depends(get_db), token: st
         )
 
     return _schemas.Client.from_orm(client)
-
 
 
 async def create_contract(client: _schemas.Client, db: _orm.Session, contract: _schemas._contractCreate):
