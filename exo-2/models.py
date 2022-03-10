@@ -9,10 +9,9 @@ class Client(_database.Base):
     id = _sql.Column(_sql.Integer, primary_key=True, index=True)
     email = _sql.Column(_sql.String, unique=True, index=True)
     hashed_password = _sql.Column(_sql.String)
-    date_created = _sql.Column(_sql.DateTime, default=_dt.datetime.utcnow)
+    date_created = _sql.Column(_sql.String)
 
-    contract_id = _sql.Column(_sql.Integer, _sql.ForeignKey('contract.id'))
-    contracts = _orm.relationship('Contract', foreign_keys=[contract_id])
+    contracts = _orm.relationship('Contract', back_populates="owner")
         
     def verify_password_client(self, password : str):
         return _hash.bcrypt.verify(password, self.hashed_password)
@@ -22,23 +21,22 @@ class Admin(_database.Base):
     id = _sql.Column(_sql.Integer, primary_key=True, index=True)
     email = _sql.Column(_sql.String, unique=True, index=True)
     hashed_password = _sql.Column(_sql.String)
-    date_created = _sql.Column(_sql.DateTime, default=_dt.datetime.utcnow)
-
+    date_created = _sql.Column(_sql.String)
 
     def verify_password_admin(self, password : str):
         return _hash.bcrypt.verify(password, self.hashed_password)
 
 class Contract(_database.Base):
-    __tablename__="contract"
+    __tablename__="contracts"
     id = _sql.Column(_sql.Integer, primary_key=True, index=True)
     description = _sql.Column(_sql.String)
-    date_debut = _sql.Column(_sql.DateTime, default=_dt.datetime)
+    date_debut = _sql.Column(_sql.String)
     date_end = _sql.Column(_sql.String)
     tempete = _sql.Column(_sql.Boolean)
     incendie = _sql.Column(_sql.Boolean)
     inondation = _sql.Column(_sql.Boolean)
     accident = _sql.Column(_sql.Boolean)
     vole = _sql.Column(_sql.Boolean)
-    client_id = _sql.Column(_sql.Integer, _sql.ForeignKey('client.id'))
+    owner_id = _sql.Column(_sql.Integer, _sql.ForeignKey('client.id'))
 
-    clients = _orm.relationship('Client', foreign_keys=[client_id])
+    owner = _orm.relationship('Client', back_populates="contracts")
