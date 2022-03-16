@@ -154,3 +154,7 @@ def get_clients(db: _orm.Session, skip: int, limit : int):
 
 def read_client(db: _orm.Session, client_id: int):
     return db.query(_models.Client).filter(_models.Client.id == client_id).first() 
+
+def delete_user(db: _orm.Session, client_id: int):
+    db.query(_models.Client).filter(_models.Client.id == client_id).delete()
+    db.commit()

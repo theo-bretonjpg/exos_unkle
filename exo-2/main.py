@@ -63,7 +63,7 @@ async def generate_client_token(
 
 
 #Create Contract
-@app.post("/api/admin/{client_id}/contracts", response_model=_schemas.Contract)
+@app.post("/api/admin/{client_id}/contracts", response_model=_schemas.contract)
 async def create_contract(
     client_id : int, contract: _schemas._contractCreate, 
     db: _orm.Session=_fastapi.Depends(_services.get_db),
@@ -90,7 +90,7 @@ async def create_contract(
 
 #sees client contracts
 
-@app.get("/api/admin/contracts", response_model=list[_schemas.Contract])
+@app.get("/api/admin/contracts", response_model=list[_schemas.contract])
 async def get_client_contracts(
 
     client: _schemas.Client = _fastapi.Depends(_services.get_current_admin),
@@ -133,3 +133,12 @@ async def generate_admin_token(
         raise _fastapi.HTTPException(status_code=401, detail="Invalid Credentials")
 
     return await _services.create_admin_token(admin=admin)
+
+
+
+@app.delete("/api/admin/clients/{client_id}")
+def delete_client(client_id : int, db: _orm.Session = _fastapi.Depends(_services.get_db), admin = _fastapi.Depends(_services.get_current_admin)):
+    _services.delete_user(db=db, client_id=client_id)
+    return {"message": f"seccessfully deleted client with id : {client_id}"}
+
+ 
